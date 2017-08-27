@@ -6,26 +6,26 @@ namespace JsonWebToken
 {
     public static class Base64Url
     {
-        public static String Encode(Byte[] input)
+        public static String Encode(Byte[] btInput)
         {
-            return Convert.ToBase64String(input).Split(new char[]
+            return Convert.ToBase64String(btInput).Split(new char[]
             {
                 '='
             })[0].Replace('+', '-').Replace('/', '_');
         }
 
-        public static Byte[] Decode(String input)
+        public static Byte[] Decode(String strInput)
         {
-            String output = input.Replace('-', '+');
-            output = output.Replace('_', '/');
-            switch (output.Length % 4)
+            String strOutput = strInput.Replace('-', '+');
+            strOutput = strOutput.Replace('_', '/');
+            switch (strOutput.Length % 4)
             {
                 case 0: break;
-                case 2: output += "=="; break;
-                case 3: output += "="; break;
+                case 2: strOutput += "=="; break;
+                case 3: strOutput += "="; break;
                 default: throw new ArgumentOutOfRangeException("input", "Illegal base64url string!");
             }
-            return Convert.FromBase64String(output);
+            return Convert.FromBase64String(strOutput);
         }
     }
 }
